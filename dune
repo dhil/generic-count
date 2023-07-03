@@ -1,0 +1,5 @@
+(executable
+ (public_name generic_count)
+ (name generic_count)
+ (modes byte native)
+ (libraries multicont delimcc_of_fxhandler))
