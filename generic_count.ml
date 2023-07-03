@@ -100,7 +100,7 @@ module Callcc_Search : GENERIC_SEARCH = struct
     let inner = Sys.opaque_identity (ref (fun _x -> false)) in
     let pop k = inner := k in
     let push k =
-      (* Memorise the previous continuation function. *)
+      (* Memoise the previous continuation function. *)
       let prev = !inner in
       (* Override the continuation function to be a wrapper around the
          current continuation `k`. *)
