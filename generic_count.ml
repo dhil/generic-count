@@ -105,12 +105,12 @@ module Callcc_Search : GENERIC_SEARCH = struct
       (* Override the continuation function to be a wrapper around the
          current continuation `k`. *)
       cc := (fun x -> (* the following trick realises the "back up"
-                            behaviour of multi-shot delimited
-                            continuations. It restores the previous
-                            continuation function such the rest of the
-                            program sees it after the exploration of
-                            the false branch using the current
-                            continuation. *)
+                         behaviour of multi-shot delimited
+                         continuations. It restores the previous
+                         continuation function such the rest of the
+                         program sees it after the exploration of the
+                         false branch using the current
+                         continuation. *)
         if x then k x else (pop prev; k x))
     in
     let () =
