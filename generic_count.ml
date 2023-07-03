@@ -92,9 +92,9 @@ module Callcc_Search : GENERIC_SEARCH = struct
 
   let count pred =
     let open Callcc in
-    (* NOTE: The Sys.opaque_identity is a trick to prevent the
-       compiler from performing the heap-to-stack conversion
-       optimisation, which is invalid in the presence of multi-shot
+    (* NOTE: Sys.opaque_identity is a trick to prevent the compiler
+       from performing the heap-to-stack conversion optimisation,
+       which is invalid in the presence of multi-shot
        continuations. *)
     let result = Sys.opaque_identity (ref 0) in
     let inner = Sys.opaque_identity (ref (fun _x -> false)) in
