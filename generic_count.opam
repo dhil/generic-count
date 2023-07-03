@@ -15,6 +15,7 @@ tags: [
   "generic search"
   "generic count"
   "shift/reset"
+  "callcc"
 ]
 homepage: "https://github.com/dhil/generic-count"
 bug-reports: "https://github.com/dhil/generic-count/issues"

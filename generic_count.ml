@@ -67,14 +67,16 @@ module Callcc = struct
                let open Multicont.Deep in
                let r = promote k in
                let exception Throw of a in
+               let exception Done of a in
                let rec handle_throw r f =
                  try f () with
                  | Throw x -> handle_throw r (fun () -> resume r x)
+                 | Done x -> resume r x
                in
                handle_throw r (fun () ->
                    toplevel (fun () ->
                        let ans = f (fun x -> raise (Throw x)) in
-                       raise (Throw ans))))
+                       raise (Done ans))))
         | _ -> None) }
     and toplevel f = (* to be inserted at the beginning of the program *)
       Effect.Deep.match_with f () hcallcc
