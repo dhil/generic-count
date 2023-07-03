@@ -97,14 +97,14 @@ module Callcc_Search : GENERIC_SEARCH = struct
        which is invalid in the presence of multi-shot
        continuations. *)
     let result = Sys.opaque_identity (ref 0) in
-    let inner = Sys.opaque_identity (ref (fun _x -> false)) in
-    let pop k = inner := k in
+    let cc = Sys.opaque_identity (ref (fun _x -> false)) in
+    let pop k = cc := k in
     let push k =
       (* Memoise the previous continuation function. *)
-      let prev = !inner in
+      let prev = !cc in
       (* Override the continuation function to be a wrapper around the
          current continuation `k`. *)
-      inner := (fun x -> (* the following trick realises the "back up"
+      cc := (fun x -> (* the following trick realises the "back up"
                             behaviour of multi-shot delimited
                             continuations. It restores the previous
                             continuation function such the rest of the
@@ -117,10 +117,10 @@ module Callcc_Search : GENERIC_SEARCH = struct
       if pred (fun _i ->
           callcc (fun k ->
               push k;
-              !inner true))
+              !cc true))
       then incr result else ()
     in
-    ignore (!inner false);
+    ignore (!cc false);
     !result
 end
 
